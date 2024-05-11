@@ -6,5 +6,10 @@ namespace MintHTML
         {
             InitializeComponent();
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBox2.Enabled = radioButton1.Checked;
+        }
     }
 }
