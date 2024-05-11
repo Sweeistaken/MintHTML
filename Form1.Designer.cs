@@ -32,6 +32,9 @@
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             panel1 = new Panel();
+            groupBox3 = new GroupBox();
+            button2 = new Button();
+            textBox2 = new TextBox();
             groupBox2 = new GroupBox();
             button1 = new Button();
             textBox1 = new TextBox();
@@ -39,8 +42,11 @@
             fileToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
+            Opener = new OpenFileDialog();
+            Saver = new SaveFileDialog();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
+            groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -66,13 +72,13 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(120, 20);
             radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
             radioButton2.Text = "Render mode";
             radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
             radioButton1.Dock = DockStyle.Top;
             radioButton1.FlatStyle = FlatStyle.System;
             radioButton1.Location = new Point(3, 19);
@@ -86,6 +92,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(groupBox3);
             panel1.Controls.Add(groupBox2);
             panel1.Controls.Add(groupBox1);
             panel1.Dock = DockStyle.Top;
@@ -93,6 +100,39 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 67);
             panel1.TabIndex = 1;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(button2);
+            groupBox3.Controls.Add(textBox2);
+            groupBox3.Dock = DockStyle.Fill;
+            groupBox3.Location = new Point(439, 0);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(361, 67);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Input file";
+            // 
+            // button2
+            // 
+            button2.Dock = DockStyle.Fill;
+            button2.FlatStyle = FlatStyle.System;
+            button2.Location = new Point(3, 42);
+            button2.Name = "button2";
+            button2.Size = new Size(355, 22);
+            button2.TabIndex = 3;
+            button2.Text = "Select file";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // textBox2
+            // 
+            textBox2.Dock = DockStyle.Top;
+            textBox2.Location = new Point(3, 19);
+            textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "Type path or select file below. ";
+            textBox2.Size = new Size(355, 23);
+            textBox2.TabIndex = 2;
             // 
             // groupBox2
             // 
@@ -114,15 +154,16 @@
             button1.Name = "button1";
             button1.Size = new Size(307, 22);
             button1.TabIndex = 1;
-            button1.Text = "Select folder";
+            button1.Text = "Select path";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // textBox1
             // 
             textBox1.Dock = DockStyle.Top;
             textBox1.Location = new Point(3, 19);
             textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Type path or select folder below. ";
+            textBox1.PlaceholderText = "Type path or select path below. ";
             textBox1.Size = new Size(307, 23);
             textBox1.TabIndex = 0;
             // 
@@ -131,6 +172,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
             menuStrip1.Size = new Size(800, 24);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
@@ -154,6 +196,19 @@
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.Size = new Size(107, 22);
             aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            // 
+            // Opener
+            // 
+            Opener.DefaultExt = "md";
+            Opener.Filter = "Markdown files|*.md|All files|*.*";
+            Opener.SupportMultiDottedExtensions = true;
+            // 
+            // Saver
+            // 
+            Saver.CheckPathExists = false;
+            Saver.DefaultExt = "html";
+            Saver.Filter = "HTML websites|*.html|All files|*.*";
             // 
             // Form1
             // 
@@ -168,6 +223,8 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             menuStrip1.ResumeLayout(false);
@@ -189,5 +246,10 @@
         private GroupBox groupBox2;
         private TextBox textBox1;
         private Button button1;
+        private GroupBox groupBox3;
+        private Button button2;
+        private TextBox textBox2;
+        private OpenFileDialog Opener;
+        private SaveFileDialog Saver;
     }
 }
