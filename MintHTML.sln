@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34814.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintHTML", "MintHTML.csproj", "{A732CE4A-DE08-4127-9BB0-C712C8760040}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A732CE4A-DE08-4127-9BB0-C712C8760040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A732CE4A-DE08-4127-9BB0-C712C8760040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A732CE4A-DE08-4127-9BB0-C712C8760040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A732CE4A-DE08-4127-9BB0-C712C8760040}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD9734DB-B1C0-4E0F-9AAA-8F5C1C1288BC}
+	EndGlobalSection
+EndGlobal
