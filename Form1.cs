@@ -1,3 +1,6 @@
+using CefSharp;
+using CefSharp.WinForms;
+
 namespace MintHTML
 {
     public partial class Form1 : Form
@@ -5,11 +8,6 @@ namespace MintHTML
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBox2.Enabled = radioButton1.Checked;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -27,6 +25,22 @@ namespace MintHTML
         {
             Saver.ShowDialog();
             textBox1.Text = Saver.FileName;
+
+        }
+
+        private void chromiumWebBrowser1_LoadingStateChanged(object sender, CefSharp.LoadingStateChangedEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            chromiumWebBrowser1.LoadHtml("<style>html{font-family: sans-serif}</style><h1>MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
