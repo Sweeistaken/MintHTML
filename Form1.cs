@@ -76,7 +76,21 @@ font-family: sans-serif
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            Saver.FileName = textBox2.Text.Split("\\").Last()[0..^3] + ".html";
+            DialogResult result = Saver.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                if (MessageBox.Show("Do you want to keep the current CSS settings?","Converter",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    convert();
+                    File.WriteAllText(Saver.FileName,css + htmlfile);
+                } else {
+                    convert();
+                    File.WriteAllText(Saver.FileName, htmlfile);
+                }
+                MessageBox.Show("Save complete.","Converter",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                chromiumWebBrowser1.LoadHtml(css + htmlfile);
+            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
