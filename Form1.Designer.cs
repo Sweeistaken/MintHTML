@@ -43,7 +43,6 @@
             Saver = new SaveFileDialog();
             groupBox4 = new GroupBox();
             progressBar1 = new ProgressBar();
-            chromiumWebBrowser1 = new CefSharp.WinForms.ChromiumWebBrowser();
             button4 = new Button();
             button3 = new Button();
             groupBox3 = new GroupBox();
@@ -110,13 +109,13 @@
             // 
             fontFamilyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { serifToolStripMenuItem, sansSerifToolStripMenuItem, forceMonospaceToolStripMenuItem });
             fontFamilyToolStripMenuItem.Name = "fontFamilyToolStripMenuItem";
-            fontFamilyToolStripMenuItem.Size = new Size(180, 22);
+            fontFamilyToolStripMenuItem.Size = new Size(136, 22);
             fontFamilyToolStripMenuItem.Text = "Font Family";
             // 
             // serifToolStripMenuItem
             // 
             serifToolStripMenuItem.Name = "serifToolStripMenuItem";
-            serifToolStripMenuItem.Size = new Size(180, 22);
+            serifToolStripMenuItem.Size = new Size(176, 22);
             serifToolStripMenuItem.Text = "Serif";
             serifToolStripMenuItem.Click += serifToolStripMenuItem_Click;
             // 
@@ -125,14 +124,14 @@
             sansSerifToolStripMenuItem.Checked = true;
             sansSerifToolStripMenuItem.CheckState = CheckState.Checked;
             sansSerifToolStripMenuItem.Name = "sansSerifToolStripMenuItem";
-            sansSerifToolStripMenuItem.Size = new Size(180, 22);
+            sansSerifToolStripMenuItem.Size = new Size(176, 22);
             sansSerifToolStripMenuItem.Text = "(Default) Sans serif";
             sansSerifToolStripMenuItem.Click += sansSerifToolStripMenuItem_Click;
             // 
             // forceMonospaceToolStripMenuItem
             // 
             forceMonospaceToolStripMenuItem.Name = "forceMonospaceToolStripMenuItem";
-            forceMonospaceToolStripMenuItem.Size = new Size(180, 22);
+            forceMonospaceToolStripMenuItem.Size = new Size(176, 22);
             forceMonospaceToolStripMenuItem.Text = "(Force) Monospace";
             forceMonospaceToolStripMenuItem.Click += forceMonospaceToolStripMenuItem_Click;
             // 
@@ -151,7 +150,6 @@
             // groupBox4
             // 
             groupBox4.Controls.Add(progressBar1);
-            groupBox4.Controls.Add(chromiumWebBrowser1);
             groupBox4.Controls.Add(button4);
             groupBox4.Dock = DockStyle.Fill;
             groupBox4.Location = new Point(0, 91);
@@ -168,18 +166,7 @@
             progressBar1.Location = new Point(3, 42);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(794, 5);
-            progressBar1.Style = ProgressBarStyle.Marquee;
             progressBar1.TabIndex = 2;
-            // 
-            // chromiumWebBrowser1
-            // 
-            chromiumWebBrowser1.ActivateBrowserOnCreation = false;
-            chromiumWebBrowser1.Dock = DockStyle.Fill;
-            chromiumWebBrowser1.Location = new Point(3, 42);
-            chromiumWebBrowser1.Name = "chromiumWebBrowser1";
-            chromiumWebBrowser1.Size = new Size(794, 333);
-            chromiumWebBrowser1.TabIndex = 0;
-            chromiumWebBrowser1.LoadingStateChanged += chromiumWebBrowser1_LoadingStateChanged;
             // 
             // button4
             // 
@@ -275,7 +262,6 @@
         private SaveFileDialog Saver;
         private GroupBox groupBox4;
         private Button button3;
-        private CefSharp.WinForms.ChromiumWebBrowser chromiumWebBrowser1;
         private Button button4;
         private ToolStripMenuItem renderToolStripMenuItem;
         private ToolStripMenuItem fontFamilyToolStripMenuItem;
