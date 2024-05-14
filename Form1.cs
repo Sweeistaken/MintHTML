@@ -5,7 +5,6 @@ namespace MintHTML
 {
     public partial class Form1 : Form
     {
-        ChromiumWebBrowser chromiumWebBrowser1;
         string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string markfile;
         string htmlfile = "<h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
@@ -16,7 +15,8 @@ background-color: #F3F3F3;
 border: solid;
 border-width: 1px
 }
-</style>";
+</style>
+<ul style=""list-style-type:circle;"">";
         string css;
         // Custom functions
         private void convert()
@@ -28,40 +28,49 @@ border-width: 1px
                 while ((line = reader.ReadLine()) != null)
                 {
                     // Header 1
-                    if (line.Contains("# "))
+                    if (line[0..1] == "# ")
                     {
                         line = "<h1>" + line[1..] + "</h1>";
 
                     }
                     // Header 2
-                    else if (line.Contains("## "))
+                    else if (line[0..2] == "## ")
                     {
                         line = "<h2>" + line[1..] + "</h2>";
 
                     }
                     // Header 3
-                    else if (line.Contains("### "))
+                    else if (line[0..3] == "### ")
                     {
                         line = "<h3>" + line[1..] + "</h3>";
 
                     }
                     // Header 4
-                    else if (line.Contains("#### "))
+                    else if (line[0..4] == "#### ")
                     {
                         line = "<h4>" + line[1..] + "</h4>";
 
                     }
                     // Header 5
-                    else if (line.Contains("##### "))
+                    else if (line[0..5] == "##### ")
                     {
                         line = "<h5>" + line[1..] + "</h5>";
 
                     }
                     // Header 6
-                    else if (line.Contains("###### "))
+                    else if (line[0..6] == "###### ")
                     {
                         line = "<h6>" + line[1..] + "</h6>";
 
+                    }
+                    // Bullet point
+                    else if (line[0..1] == "* ")
+                    {
+                        line = "<li>" + line[1..] + "</li>";
+                    }
+                    else if (line[0..1] == "- ")
+                    {
+                        line = "<li>" + line[1..] + "</li>";
                     }
                     // Code block
                     else if (line.Contains("`"))
@@ -83,12 +92,14 @@ border-width: 1px
         {
             if (File.Exists(appdata + "/SweeZero/MintHTML/RootCache/lockfile"))
             {
-                if (MessageBox.Show("There is another instance of MintHTML running. If there isn't, press Yes to try opening anyways.","Cef Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes) 
+                if (MessageBox.Show("There is another instance of MintHTML running. If there isn't, press Yes to try opening anyways.", "Cef Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     try
                     {
                         File.Delete(appdata + "/SweeZero/MintHTML/RootCache/lockfile");
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         MessageBox.Show(ex.Message, "Cef Error (fatal)", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -96,16 +107,9 @@ border-width: 1px
             var settings = new CefSettings()
             {
                 RootCachePath = appdata + "/SweeZero/MintHTML/RootCache",
-                LogFile = appdata + "/SweeZero/MintHTML/CefSharp.log",
-                LogSeverity = LogSeverity.Default
             };
-            Cef.Initialize(settings);
-            chromiumWebBrowser1 = new ChromiumWebBrowser();
-            chromiumWebBrowser1.LoadingStateChanged += chromiumWebBrowser1_LoadingStateChanged;
-            chromiumWebBrowser1.Dock = DockStyle.Fill;
             InitializeComponent();
-            groupBox4.Controls.Add(chromiumWebBrowser1);
-            chromiumWebBrowser1.BringToFront();
+            Cef.Initialize(settings);
             css = @"<style>
 html{
 font-family: sans-serif
@@ -140,15 +144,17 @@ font-family: sans-serif
             DialogResult result = Saver.ShowDialog();
             if (result == DialogResult.OK)
             {
-                if (MessageBox.Show("Do you want to keep the current CSS settings?","Converter",MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Do you want to keep the current CSS settings?", "Converter", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     convert();
-                    File.WriteAllText(Saver.FileName,css + htmlfile);
-                } else {
+                    File.WriteAllText(Saver.FileName, css + htmlfile);
+                }
+                else
+                {
                     convert();
                     File.WriteAllText(Saver.FileName, htmlfile);
                 }
-                MessageBox.Show("Save complete.","Converter",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Save complete.", "Converter", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 chromiumWebBrowser1.LoadHtml(css + htmlfile);
             }
         }
@@ -161,7 +167,7 @@ font-family: sans-serif
         private void chromiumWebBrowser1_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
             this.Invoke(new Action(() => progressBar1.Visible = chromiumWebBrowser1.IsLoading));
-            this.Invoke(new Action(() => progressBar1.Style = ProgressBarStyle.Marquee));
+            this.Invoke(new Action(() => openDevToolsToolStripMenuItem.Enabled = !chromiumWebBrowser1.IsLoading));
         }
 
         private void openDevToolsToolStripMenuItem_Click_1(object sender, EventArgs e)

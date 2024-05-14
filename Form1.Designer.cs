@@ -42,6 +42,7 @@
             Opener = new OpenFileDialog();
             Saver = new SaveFileDialog();
             groupBox4 = new GroupBox();
+            chromiumWebBrowser1 = new CefSharp.WinForms.ChromiumWebBrowser();
             progressBar1 = new ProgressBar();
             button4 = new Button();
             button3 = new Button();
@@ -72,6 +73,7 @@
             // 
             // openDevToolsToolStripMenuItem
             // 
+            openDevToolsToolStripMenuItem.Enabled = false;
             openDevToolsToolStripMenuItem.Name = "openDevToolsToolStripMenuItem";
             openDevToolsToolStripMenuItem.Size = new Size(154, 22);
             openDevToolsToolStripMenuItem.Text = "Open DevTools";
@@ -149,6 +151,7 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(chromiumWebBrowser1);
             groupBox4.Controls.Add(progressBar1);
             groupBox4.Controls.Add(button4);
             groupBox4.Dock = DockStyle.Fill;
@@ -160,12 +163,23 @@
             groupBox4.Text = "Preview";
             groupBox4.Enter += groupBox4_Enter;
             // 
+            // chromiumWebBrowser1
+            // 
+            chromiumWebBrowser1.ActivateBrowserOnCreation = false;
+            chromiumWebBrowser1.Dock = DockStyle.Fill;
+            chromiumWebBrowser1.Location = new Point(3, 47);
+            chromiumWebBrowser1.Name = "chromiumWebBrowser1";
+            chromiumWebBrowser1.Size = new Size(794, 328);
+            chromiumWebBrowser1.TabIndex = 3;
+            chromiumWebBrowser1.LoadingStateChanged += chromiumWebBrowser1_LoadingStateChanged;
+            // 
             // progressBar1
             // 
             progressBar1.Dock = DockStyle.Top;
             progressBar1.Location = new Point(3, 42);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(794, 5);
+            progressBar1.Style = ProgressBarStyle.Marquee;
             progressBar1.TabIndex = 2;
             // 
             // button4
@@ -274,5 +288,6 @@
         private GroupBox groupBox3;
         private Button button2;
         private TextBox textBox2;
+        private CefSharp.WinForms.ChromiumWebBrowser chromiumWebBrowser1;
     }
 }
