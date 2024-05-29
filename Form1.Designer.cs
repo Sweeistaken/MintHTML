@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openDevToolsToolStripMenuItem = new ToolStripMenuItem();
@@ -75,14 +76,14 @@
             // 
             openDevToolsToolStripMenuItem.Enabled = false;
             openDevToolsToolStripMenuItem.Name = "openDevToolsToolStripMenuItem";
-            openDevToolsToolStripMenuItem.Size = new Size(180, 22);
+            openDevToolsToolStripMenuItem.Size = new Size(154, 22);
             openDevToolsToolStripMenuItem.Text = "Open DevTools";
             openDevToolsToolStripMenuItem.Click += openDevToolsToolStripMenuItem_Click_1;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(180, 22);
+            exitToolStripMenuItem.Size = new Size(154, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -253,6 +254,7 @@
             Controls.Add(groupBox3);
             Controls.Add(button3);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             MinimumSize = new Size(633, 531);
             Name = "Form1";

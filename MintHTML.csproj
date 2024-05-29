@@ -8,7 +8,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
 	<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+	<ApplicationIcon>MintHTML.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="MintHTML.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CefSharp.WinForms.NETCore" Version="124.3.50" />
