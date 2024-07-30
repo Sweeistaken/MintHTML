@@ -270,7 +270,8 @@ border-width: 1px
 html{
 font-family: sans-serif
 }" + csssuffix;
-            chromiumWebBrowser1.LoadHtml(css + "<center>" + logo + htmlfile);
+            htmlfile = "<center>" + logo + htmlfile;
+            chromiumWebBrowser1.LoadHtml(css + htmlfile);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

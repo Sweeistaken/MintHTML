@@ -157,12 +157,14 @@
             groupBox4.Controls.Add(progressBar1);
             groupBox4.Controls.Add(button4);
             groupBox4.Dock = DockStyle.Fill;
+            groupBox4.FlatStyle = FlatStyle.System;
             groupBox4.Location = new Point(0, 91);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(800, 378);
             groupBox4.TabIndex = 3;
             groupBox4.TabStop = false;
             groupBox4.Text = "Preview";
+            groupBox4.UseCompatibleTextRendering = true;
             groupBox4.Enter += groupBox4_Enter;
             // 
             // chromiumWebBrowser1
@@ -188,7 +190,7 @@
             // 
             button4.Dock = DockStyle.Top;
             button4.Enabled = false;
-            button4.FlatStyle = FlatStyle.System;
+            button4.FlatStyle = FlatStyle.Flat;
             button4.Location = new Point(3, 19);
             button4.Name = "button4";
             button4.Size = new Size(794, 23);
@@ -202,7 +204,7 @@
             button3.BackColor = Color.Transparent;
             button3.Dock = DockStyle.Bottom;
             button3.Enabled = false;
-            button3.FlatStyle = FlatStyle.System;
+            button3.FlatStyle = FlatStyle.Flat;
             button3.Location = new Point(0, 469);
             button3.Name = "button3";
             button3.Size = new Size(800, 23);
@@ -216,6 +218,7 @@
             groupBox3.Controls.Add(button2);
             groupBox3.Controls.Add(textBox2);
             groupBox3.Dock = DockStyle.Top;
+            groupBox3.FlatStyle = FlatStyle.System;
             groupBox3.Location = new Point(0, 24);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(800, 67);
@@ -226,10 +229,10 @@
             // button2
             // 
             button2.Dock = DockStyle.Fill;
-            button2.FlatStyle = FlatStyle.System;
-            button2.Location = new Point(3, 42);
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(3, 35);
             button2.Name = "button2";
-            button2.Size = new Size(794, 22);
+            button2.Size = new Size(794, 29);
             button2.TabIndex = 3;
             button2.Text = "Select file";
             button2.UseVisualStyleBackColor = true;
@@ -237,11 +240,12 @@
             // 
             // textBox2
             // 
+            textBox2.BorderStyle = BorderStyle.None;
             textBox2.Dock = DockStyle.Top;
             textBox2.Location = new Point(3, 19);
             textBox2.Name = "textBox2";
             textBox2.PlaceholderText = "Type path or select file below. ";
-            textBox2.Size = new Size(794, 23);
+            textBox2.Size = new Size(794, 16);
             textBox2.TabIndex = 2;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
