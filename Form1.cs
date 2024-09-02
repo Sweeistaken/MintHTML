@@ -1,5 +1,6 @@
 using CefSharp;
 using CefSharp.WinForms;
+using Markdig;
 using System.Linq.Expressions;
 
 namespace MintHTML
@@ -175,72 +176,7 @@ border-width: 1px
         // Custom functions
         private void convert()
         {
-            htmlfile = "";
-            using (StringReader reader = new StringReader(markfile))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    try
-                    {
-                    // Header 1
-                    if (line[1..2] == "# ")
-                    {
-                        line = "<h1>" + line[1..] + "</h1>";
-
-                    }
-                    // Header 2
-                    else if (line[1..3] == "## ")
-                    {
-                        line = "<h2>" + line[1..] + "</h2>";
-
-                    }
-                    // Header 3
-                    else if (line[1..4] == "### ")
-                    {
-                        line = "<h3>" + line[1..] + "</h3>";
-
-                    }
-                    // Header 4
-                    else if (line[1..5] == "#### ")
-                    {
-                        line = "<h4>" + line[1..] + "</h4>";
-
-                    }
-                    // Header 5
-                    else if (line[1..6] == "##### ")
-                    {
-                        line = "<h5>" + line[1..] + "</h5>";
-
-                    }
-                    // Header 6
-                    else if (line[1..7] == "###### ")
-                    {
-                        line = "<h6>" + line[1..] + "</h6>";
-
-                    }
-                    // Bullet point
-                    else if (line[1..2] == "* ")
-                    {
-                        line = "<li>" + line[1..] + "</li>";
-                    }
-                    else if (line[1..2] == "- ")
-                    {
-                        line = "<li>" + line[1..] + "</li>";
-                    } } catch{}
-                    // Code block
-                    if (line.Contains("`"))
-                    {
-                        line = "<div>" + line[1..^1] + "</div>";
-                    }
-                    // Everything else (Possibly paragraph or HTML code)
-                    else
-                    {
-                        line = line + "<br>";
-                    }
-                    htmlfile += line;
-                }
-            }
+            htmlfile = Markdown.ToHtml(markfile);
         }
         // Custom functions end
 

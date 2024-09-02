@@ -18,7 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms.NETCore" Version="124.3.50" />
+    <PackageReference Include="CefSharp.WinForms.NETCore" Version="127.3.50" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="127.3.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="127.3.5" />
   </ItemGroup>
 
 </Project>
