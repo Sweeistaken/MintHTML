@@ -50,6 +50,10 @@
             groupBox3 = new GroupBox();
             button2 = new Button();
             textBox2 = new TextBox();
+            colorThemeToolStripMenuItem = new ToolStripMenuItem();
+            systemToolStripMenuItem = new ToolStripMenuItem();
+            lightToolStripMenuItem = new ToolStripMenuItem();
+            darkToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -104,7 +108,7 @@
             // 
             // renderToolStripMenuItem
             // 
-            renderToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fontFamilyToolStripMenuItem });
+            renderToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fontFamilyToolStripMenuItem, colorThemeToolStripMenuItem });
             renderToolStripMenuItem.Name = "renderToolStripMenuItem";
             renderToolStripMenuItem.Size = new Size(56, 20);
             renderToolStripMenuItem.Text = "Render";
@@ -113,7 +117,7 @@
             // 
             fontFamilyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { serifToolStripMenuItem, sansSerifToolStripMenuItem, forceMonospaceToolStripMenuItem });
             fontFamilyToolStripMenuItem.Name = "fontFamilyToolStripMenuItem";
-            fontFamilyToolStripMenuItem.Size = new Size(136, 22);
+            fontFamilyToolStripMenuItem.Size = new Size(180, 22);
             fontFamilyToolStripMenuItem.Text = "Font Family";
             // 
             // serifToolStripMenuItem
@@ -249,6 +253,36 @@
             textBox2.TabIndex = 2;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
+            // colorThemeToolStripMenuItem
+            // 
+            colorThemeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { systemToolStripMenuItem, lightToolStripMenuItem, darkToolStripMenuItem });
+            colorThemeToolStripMenuItem.Name = "colorThemeToolStripMenuItem";
+            colorThemeToolStripMenuItem.Size = new Size(180, 22);
+            colorThemeToolStripMenuItem.Text = "Color theme";
+            // 
+            // systemToolStripMenuItem
+            // 
+            systemToolStripMenuItem.BackColor = SystemColors.Control;
+            systemToolStripMenuItem.Checked = true;
+            systemToolStripMenuItem.CheckState = CheckState.Checked;
+            systemToolStripMenuItem.ForeColor = SystemColors.ControlText;
+            systemToolStripMenuItem.Name = "systemToolStripMenuItem";
+            systemToolStripMenuItem.Size = new Size(161, 22);
+            systemToolStripMenuItem.Text = "System (Default)";
+            systemToolStripMenuItem.Click += systemToolStripMenuItem_Click;
+            // 
+            // lightToolStripMenuItem
+            // 
+            lightToolStripMenuItem.Name = "lightToolStripMenuItem";
+            lightToolStripMenuItem.Size = new Size(161, 22);
+            lightToolStripMenuItem.Text = "Light";
+            // 
+            // darkToolStripMenuItem
+            // 
+            darkToolStripMenuItem.Name = "darkToolStripMenuItem";
+            darkToolStripMenuItem.Size = new Size(161, 22);
+            darkToolStripMenuItem.Text = "Dark";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -296,5 +330,9 @@
         private Button button2;
         private TextBox textBox2;
         private CefSharp.WinForms.ChromiumWebBrowser chromiumWebBrowser1;
+        private ToolStripMenuItem colorThemeToolStripMenuItem;
+        private ToolStripMenuItem systemToolStripMenuItem;
+        private ToolStripMenuItem lightToolStripMenuItem;
+        private ToolStripMenuItem darkToolStripMenuItem;
     }
 }

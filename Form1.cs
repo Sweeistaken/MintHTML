@@ -11,12 +11,6 @@ namespace MintHTML
         string markfile;
         string htmlfile = "<h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
         string csssuffix = @"
-div{
-font-family: monospace;
-background-color: #F3F3F3;
-border: solid;
-border-width: 1px
-}
 </style>
 <ul style=""list-style-type:circle;"">";
         string logo = @"<svg
@@ -332,6 +326,11 @@ font-family: monospace
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void systemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
