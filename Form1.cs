@@ -1,7 +1,9 @@
 using CefSharp;
 using CefSharp.WinForms;
 using Markdig;
+using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Security.Policy;
 
 namespace MintHTML
 {
@@ -167,6 +169,8 @@ namespace MintHTML
 </svg>
 ";
         string css;
+        bool extraInstance = false;
+        int extraNum = 0;
         // Custom functions
         private void convert()
         {
@@ -176,26 +180,31 @@ namespace MintHTML
 
         public Form1()
         {
-            if (File.Exists(appdata + "/SweeZero/MintHTML/RootCache/lockfile"))
+            if (File.Exists(appdata + "/SweeZero/MintHTML/Caches/Instance/lockfile"))
             {
-                if (MessageBox.Show("There is another instance of MintHTML running. If there isn't, press Yes to try opening anyways.", "Cef Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                extraInstance = true;
+                extraNum = 1;
+                while (File.Exists(appdata + "/SweeZero/MintHTML/Caches/Instance" + extraNum.ToString() + "/lockfile"))
                 {
-                    try
-                    {
-                        File.Delete(appdata + "/SweeZero/MintHTML/RootCache/lockfile");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Cef Error (fatal)", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    extraNum++;
                 }
+                var settings = new CefSettings()
+                {
+                    RootCachePath = appdata + "/SweeZero/MintHTML/Caches/Instance" + extraNum.ToString(),
+                    WindowlessRenderingEnabled = true,
+                };
+                Cef.Initialize(settings);
             }
-            var settings = new CefSettings()
+            else
             {
-                RootCachePath = appdata + "/SweeZero/MintHTML/RootCache",
-            };
+                var settings = new CefSettings()
+                {
+                    RootCachePath = appdata + "/SweeZero/MintHTML/Caches/Instance",
+                    WindowlessRenderingEnabled = true,
+                };
+                Cef.Initialize(settings);
+            }
             InitializeComponent();
-            Cef.Initialize(settings);
             css = @"<style>
 html{
 font-family: sans-serif
@@ -231,7 +240,7 @@ font-family: sans-serif
             DialogResult result = Saver.ShowDialog();
             if (result == DialogResult.OK)
             {
-                if (MessageBox.Show("Do you want to keep the current CSS settings?", "Converter", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Do you want to convert the rendering settings to CSS?", "Converter", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     convert();
                     File.WriteAllText(Saver.FileName, css + htmlfile);
@@ -249,12 +258,6 @@ font-family: sans-serif
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Cef.Shutdown();
-        }
-
-        private void chromiumWebBrowser1_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
-        {
-            this.Invoke(new Action(() => progressBar1.Visible = chromiumWebBrowser1.IsLoading));
-            this.Invoke(new Action(() => openDevToolsToolStripMenuItem.Enabled = !chromiumWebBrowser1.IsLoading));
         }
 
         private void openDevToolsToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -331,6 +334,23 @@ font-family: monospace
         private void systemToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void renderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void chromiumWebBrowser1_AddressChanged(object sender, AddressChangedEventArgs e)
+        {
+            if (!(chromiumWebBrowser1.Address.Substring(0, 5) == "data:"))
+            {
+                string address = chromiumWebBrowser1.Address;
+                chromiumWebBrowser1.Back();
+                if (MessageBox.Show("Open link?\n" + address, "Cef question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo(address) { UseShellExecute = true });
+                }
+            }
         }
     }
 }

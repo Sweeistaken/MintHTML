@@ -1,3 +1,7 @@
+using CefSharp;
+using CefSharp.DevTools.Page;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 namespace MintHTML
 {
     internal static class Program
@@ -14,4 +18,4 @@ namespace MintHTML
             Application.Run(new Form1());
         }
     }
-}
+ }
