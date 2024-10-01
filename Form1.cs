@@ -10,8 +10,6 @@ namespace MintHTML
         string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string markfile;
         string htmlfile = "<h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
-        string csssuffix = @"
-</style>";
         string logo = @"<svg
    width=""25mm""
    height=""25mm""
@@ -165,6 +163,7 @@ namespace MintHTML
   </g>
 </svg>
 ";
+        string css2 = "\n</style>";
         string css;
         bool extraInstance = false;
         int extraNum = 0;
@@ -172,6 +171,10 @@ namespace MintHTML
         private void convert()
         {
             htmlfile = Markdown.ToHtml(markfile);
+        }
+        private void cssreload()
+        {
+            chromiumWebBrowser1.LoadHtml(css + css2 + htmlfile);
         }
         // Custom functions end
 
@@ -205,9 +208,9 @@ namespace MintHTML
             css = @"<style>
 html{
 font-family: sans-serif
-}" + csssuffix;
+}";
             htmlfile = "<center>" + logo + htmlfile;
-            chromiumWebBrowser1.LoadHtml(css + htmlfile);
+            cssreload();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -223,7 +226,7 @@ font-family: sans-serif
             {
                 markfile = File.ReadAllText(textBox2.Text);
                 convert();
-                chromiumWebBrowser1.LoadHtml(css + htmlfile);
+                cssreload();
             }
         }
 
@@ -240,7 +243,7 @@ font-family: sans-serif
                 if (MessageBox.Show("Do you want to convert the rendering settings to CSS?", "Converter", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     convert();
-                    File.WriteAllText(Saver.FileName, css + htmlfile);
+                    File.WriteAllText(Saver.FileName, "<style>\n" + css + css2 + htmlfile);
                 }
                 else
                 {
@@ -248,7 +251,7 @@ font-family: sans-serif
                     File.WriteAllText(Saver.FileName, htmlfile);
                 }
                 MessageBox.Show("Save complete.", "Converter", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                chromiumWebBrowser1.LoadHtml(css + htmlfile);
+                cssreload();
             }
         }
 
@@ -287,11 +290,12 @@ font-family: sans-serif
             css = @"<style>
 html{
 font-family: serif
-}" + csssuffix;
+}
+";
             sansSerifToolStripMenuItem.Checked = false;
             forceMonospaceToolStripMenuItem.Checked = false;
             serifToolStripMenuItem.Checked = true;
-            chromiumWebBrowser1.LoadHtml(css + htmlfile);
+            cssreload();
         }
 
         private void groupBox4_Enter(object sender, EventArgs e)
@@ -304,11 +308,12 @@ font-family: serif
             css = @"<style>
 html{
 font-family: sans-serif
-}" + csssuffix;
+}
+";
             sansSerifToolStripMenuItem.Checked = true;
             forceMonospaceToolStripMenuItem.Checked = false;
             serifToolStripMenuItem.Checked = false;
-            chromiumWebBrowser1.LoadHtml(css + htmlfile);
+            cssreload();
         }
 
         private void forceMonospaceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -316,11 +321,12 @@ font-family: sans-serif
             css = @"<style>
 html{
 font-family: monospace
-}" + csssuffix;
+}
+";
             sansSerifToolStripMenuItem.Checked = false;
             forceMonospaceToolStripMenuItem.Checked = true;
             serifToolStripMenuItem.Checked = false;
-            chromiumWebBrowser1.LoadHtml(css + htmlfile);
+            cssreload();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -331,10 +337,6 @@ font-family: monospace
         private void systemToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void renderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void chromiumWebBrowser1_AddressChanged(object sender, AddressChangedEventArgs e)
@@ -352,7 +354,15 @@ font-family: monospace
 
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            chromiumWebBrowser1.GetDevToolsClient().Emulation.SetAutoDarkModeOverrideAsync(true);
+            css2 = @"
+html{
+color-scheme: dark;
+}
+</style>";
+            lightToolStripMenuItem.Checked = false;
+            systemToolStripMenuItem.Checked = false;
+            darkToolStripMenuItem.Checked = true;
+            cssreload();
         }
     }
 }
