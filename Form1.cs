@@ -2,8 +2,6 @@ using CefSharp;
 using CefSharp.WinForms;
 using Markdig;
 using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Security.Policy;
 
 namespace MintHTML
 {
@@ -13,8 +11,7 @@ namespace MintHTML
         string markfile;
         string htmlfile = "<h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
         string csssuffix = @"
-</style>
-<ul style=""list-style-type:circle;"">";
+</style>";
         string logo = @"<svg
    width=""25mm""
    height=""25mm""
@@ -215,7 +212,7 @@ font-family: sans-serif
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("MintHTML is a simple Markdown converter and renderer made by SweeZero's founder \"Swee.\"", "About", MessageBoxButtons.OK);
+            MessageBox.Show("MintHTML is a simple Markdown converter and renderer made by Swee.", "About", MessageBoxButtons.OK);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -351,6 +348,11 @@ font-family: monospace
                     Process.Start(new ProcessStartInfo(address) { UseShellExecute = true });
                 }
             }
+        }
+
+        private void darkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chromiumWebBrowser1.GetDevToolsClient().Emulation.SetAutoDarkModeOverrideAsync(true);
         }
     }
 }
