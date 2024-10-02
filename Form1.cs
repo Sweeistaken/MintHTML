@@ -2,6 +2,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using Markdig;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace MintHTML
 {
@@ -9,7 +10,7 @@ namespace MintHTML
     {
         string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string markfile;
-        string htmlfile = "<h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
+        string htmlfile = "<body oncontextmenu=\"return false;\"><h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
         string logo = @"<svg
    width=""25mm""
    height=""25mm""
@@ -174,7 +175,50 @@ namespace MintHTML
         }
         private void cssreload()
         {
-            chromiumWebBrowser1.LoadHtml(css + css2 + htmlfile);
+            chromiumWebBrowser1.LoadHtml(css + css2 + "<body oncontextmenu=\"return false;\">" + htmlfile);
+        }
+        private void darkui()
+        {
+            BackColor = Color.FromArgb(18,18,18);
+            ForeColor = Color.White;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.BackColor = BackColor;
+            button4.ForeColor = ForeColor;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.BackColor = BackColor;
+            button3.ForeColor = ForeColor;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.BackColor = BackColor;
+            button2.ForeColor = ForeColor;
+            textBox2.BackColor = BackColor;
+            textBox2.ForeColor = ForeColor;
+            menuStrip1.BackColor = BackColor;
+            menuStrip1.ForeColor = ForeColor;
+            menuStrip1.RenderMode = ToolStripRenderMode.Professional;
+            aboutToolStripMenuItem.BackColor = BackColor;
+            aboutToolStripMenuItem.ForeColor = ForeColor;
+            openDevToolsToolStripMenuItem.BackColor = BackColor;
+            openDevToolsToolStripMenuItem.ForeColor = ForeColor;
+            exitToolStripMenuItem.BackColor = BackColor;
+            exitToolStripMenuItem.ForeColor = ForeColor;
+            fontFamilyToolStripMenuItem.BackColor = BackColor;
+            fontFamilyToolStripMenuItem.ForeColor = ForeColor;
+            colorThemeToolStripMenuItem.BackColor = BackColor;
+            colorThemeToolStripMenuItem.ForeColor = ForeColor;
+            fullUIToolStripMenuItem.BackColor = BackColor;
+            fullUIToolStripMenuItem.ForeColor = ForeColor;
+            systemToolStripMenuItem.BackColor = BackColor;
+            systemToolStripMenuItem.ForeColor = ForeColor;
+            lightToolStripMenuItem.BackColor = BackColor;
+            lightToolStripMenuItem.ForeColor = ForeColor;
+            darkToolStripMenuItem.BackColor = BackColor;
+            darkToolStripMenuItem.ForeColor = ForeColor;
+            serifToolStripMenuItem.BackColor = BackColor;
+            serifToolStripMenuItem.ForeColor = ForeColor;
+            sansSerifToolStripMenuItem.BackColor = BackColor;
+            sansSerifToolStripMenuItem.ForeColor = ForeColor;
+            forceMonospaceToolStripMenuItem.BackColor = BackColor;
+            forceMonospaceToolStripMenuItem.ForeColor = ForeColor;
         }
         // Custom functions end
 
@@ -201,6 +245,7 @@ namespace MintHTML
                 {
                     RootCachePath = appdata + "/SweeZero/MintHTML/Caches/Instance",
                     WindowlessRenderingEnabled = true,
+                    
                 };
                 Cef.Initialize(settings);
             }
@@ -229,7 +274,7 @@ font-family: sans-serif
                 cssreload();
             }
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
         }
@@ -243,7 +288,7 @@ font-family: sans-serif
                 if (MessageBox.Show("Do you want to convert the rendering settings to CSS?", "Converter", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     convert();
-                    File.WriteAllText(Saver.FileName, "<style>\n" + css + css2 + htmlfile);
+                    File.WriteAllText(Saver.FileName, "<style>\n" + css + "</style>" + htmlfile);
                 }
                 else
                 {
@@ -276,7 +321,7 @@ font-family: sans-serif
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            chromiumWebBrowser1.LoadHtml(css + htmlfile);
+            cssreload();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -362,6 +407,7 @@ color-scheme: dark;
             lightToolStripMenuItem.Checked = false;
             systemToolStripMenuItem.Checked = false;
             darkToolStripMenuItem.Checked = true;
+            darkui();
             cssreload();
         }
     }
