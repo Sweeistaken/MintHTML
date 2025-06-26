@@ -1,0 +1,11 @@
+---
+kind: pipeline
+type: exec
+name: Test & Build app
+platform:
+  os: windows
+  arch: amd64
+steps:
+  - name: Test build app
+    commands:
+      - dotnet build
