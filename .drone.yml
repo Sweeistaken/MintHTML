@@ -6,6 +6,9 @@ platform:
   os: windows
   arch: amd64
 steps:
+  - name: Restore project
+    commands:
+      - dotnet restore
   - name: Test build app
     commands:
       - dotnet build
