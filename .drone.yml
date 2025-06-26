@@ -6,9 +6,9 @@ platform:
   os: windows
   arch: amd64
 steps:
-  - name: Restore project
+  - name: debug nuget
     commands:
-      - dotnet restore --verbosity d
+      - dotnet add package NuGet.Protocol --verbosity d
   - name: Test build app
     commands:
       - dotnet build
