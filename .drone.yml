@@ -8,7 +8,7 @@ platform:
 steps:
   - name: Restore project
     commands:
-      - dotnet restore
+      - dotnet restore --verbosity diag
   - name: Test build app
     commands:
       - dotnet build
