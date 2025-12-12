@@ -3,11 +3,24 @@ using CefSharp.WinForms;
 using Markdig;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace MintHTML
 {
     public partial class Form1 : Form
     {
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
+        [DllImport("dwmapi.dll", PreserveSig = true)]
+        private static extern int DwmSetWindowAttribute(
+            IntPtr hwnd,
+            int attr,
+            ref int attrValue,
+            int attrSize
+        );
+        private bool IsWindows10OrGreater(int build) =>
+            Environment.OSVersion.Version.Major >= 10 &&
+            Environment.OSVersion.Version.Build >= build;
         string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string markfile;
         string htmlfile = "<body oncontextmenu=\"return false;\"><h1>Welcome to MintHTML</h1><p>Open a markdown file and press \"Render preview\" to see the output here.</p>";
@@ -219,6 +232,14 @@ namespace MintHTML
             sansSerifToolStripMenuItem.ForeColor = ForeColor;
             forceMonospaceToolStripMenuItem.BackColor = BackColor;
             forceMonospaceToolStripMenuItem.ForeColor = ForeColor;
+            if (IsWindows10OrGreater(17763)) // Windows 10 1809+
+            {
+                int useDarkMode = 1;
+                int attribute = DWMWA_USE_IMMERSIVE_DARK_MODE;
+                if (!IsWindows10OrGreater(18985))
+                    attribute = DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1;
+                DwmSetWindowAttribute(this.Handle, attribute, ref useDarkMode, sizeof(int));
+            }
         }
         // Custom functions end
 
